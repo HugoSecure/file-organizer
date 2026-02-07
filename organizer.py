@@ -1,28 +1,46 @@
-import os
+from pathlib import Path
 import shutil
+import argparse
 
-# Carpeta donde está el script
-BASE_DIR = os.getcwd()
-
-# Tipos de archivos y sus carpetas
+# ----------------------------------
+# Configuración: tipos de archivos y exclusiones
+# ----------------------------------
 FILE_TYPES = {
-    "Imágenes": [".jpg", ".png", ".jpeg"],
-    "Documentos": [".pdf", ".docx", ".txt"],
+    "Imágenes": [".jpg", ".jpeg", ".png", ".gif"],
+    "Documentos": [".pdf", ".docx", ".txt", ".xlsx"],
     "Audio": [".mp3", ".wav"],
-    "Videos": [".mp4", ".avi"]
+    "Videos": [".mp4", ".avi", ".mov"]
 }
 
-# Recorre todos los archivos de la carpeta
-for archivo in os.listdir(BASE_DIR):
-    ruta_archivo = os.path.join(BASE_DIR, archivo)
+EXCLUDE_FILES = ["organizer.py", "README.md"]  # archivos que no se moverán
 
-    # Solo archivos (ignora carpetas)
-    if os.path.isfile(ruta_archivo):
+# ----------------------------------
+# Argumentos desde la terminal
+# ----------------------------------
+parser = argparse.ArgumentParser(description="Organiza archivos en subcarpetas por tipo")
+parser.add_argument("--path", type=str, default=".", help="Ruta de la carpeta a organizar")
+args = parser.parse_args()
+BASE_DIR = Path(args.path).resolve()
+
+# ----------------------------------
+# Contador de archivos movidos
+# ----------------------------------
+count = 0
+
+# ----------------------------------
+# Organización de archivos
+# ----------------------------------
+for archivo in BASE_DIR.iterdir():
+    if archivo.is_file() and archivo.name not in EXCLUDE_FILES:
         for carpeta, extensiones in FILE_TYPES.items():
-            if archivo.lower().endswith(tuple(extensiones)):
-                ruta_carpeta = os.path.join(BASE_DIR, carpeta)
-                os.makedirs(ruta_carpeta, exist_ok=True)  # crea carpeta si no existe
-                shutil.move(ruta_archivo, ruta_carpeta)   # mueve el archivo
+            if archivo.suffix.lower() in extensiones:
+                carpeta_path = BASE_DIR / carpeta
+                carpeta_path.mkdir(exist_ok=True)
+                shutil.move(str(archivo), carpeta_path)
+                count += 1
                 break
 
-print("¡Archivos organizados!")
+# ----------------------------------
+# Resultado final
+# ----------------------------------
+print(f"¡Archivos organizados! Se movieron {count} archivo(s).")

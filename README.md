@@ -1,22 +1,20 @@
 # File Organizer
 
-## Problema
-Las carpetas con muchos archivos desordenados hacen perder tiempo.
+## Descripción
+Script en Python que organiza automáticamente archivos en subcarpetas según su tipo, ayudando a mantener el orden y ahorrar tiempo.
 
-## Solución
-Este script organiza los archivos en subcarpetas según su tipo automáticamente.
+## Características
+- Detecta automáticamente tipos de archivos (imágenes, documentos, audio, videos)
+- Crea carpetas si no existen
+- Mueve archivos a la carpeta correspondiente
+- Permite especificar cualquier carpeta desde la terminal
+- Muestra un resumen de cuántos archivos se movieron
 
 ## Tecnologías
-- Python
-- os
-- shutil
+- Python 3
+- Librerías estándar: `pathlib`, `shutil`, `argparse`
 
-## Cómo usarlo
-1. Coloca este script en la carpeta que quieras organizar
-2. Ejecuta `python organizer.py`
-3. ¡Archivos organizados!
-
-## Mejoras futuras
-- Agregar configuración personalizada
-- Soporte para más tipos de archivos
-- Interfaz gráfica
+## Instalación
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/TU_USUARIO/file-organizer.git
