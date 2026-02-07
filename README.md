@@ -19,3 +19,8 @@ Script en Python que organiza automáticamente archivos en subcarpetas según su
 1. Clona el repositorio:
    ```bash
    git clone https://github.com/TU_USUARIO/file-organizer.git
+## Licencia
+MIT License. Puedes usar y modificar este script libremente, manteniendo el crédito al autor.
+## 💸 Versión descargable
+Puedes descargar la versión lista para usar aquí:
+👉 https://hugosecure.gumroad.com/l/cftom
